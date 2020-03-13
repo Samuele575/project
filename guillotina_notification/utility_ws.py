@@ -23,7 +23,7 @@ class NotificationSenderUtility:
         self._webservices = []
 
 
-    def register_ws(self, ws):
+    def register_ws(self, context, ws):
         request = get_current_request()
 
         multi_params = request.query_string
@@ -33,9 +33,11 @@ class NotificationSenderUtility:
             if ricercato[0] == 'userId':
                 ws.user_id = ricercato[1]
 
-        self._webservices.append(ws)
+        '''
+        context._webservices.append(ws)
+        context.register()
         print(ws.user_id)
-
+        '''
 
     def unregister_ws(self, ws):
         self._webservices.remove(ws)

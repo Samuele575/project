@@ -23,7 +23,7 @@ async def ws_notificate(context, request):
     ws = web.WebSocketResponse()
     utility = get_utility(INotificationSender)
 
-    utility.register_ws(ws)
+    utility.register_ws(context, ws)
 
     tm = get_tm()
     await tm.abort()
