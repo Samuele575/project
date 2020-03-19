@@ -4,18 +4,21 @@ from guillotina.interfaces import IResource
 from guillotina import configure, schema
 from zope.interface import Interface
 
-class IMarckerBehavior(Interface):
+class IMySocketBehavior(Interface):
+    websocket = schema.List(
+        title="WebSocketList", 
+        description="The list of opened socket"
+    )
+
+class ISocketMarcker(Interface):
     """Marker interface for content with attachment."""
 
-
-class IMySocketBehavior(Interface):
-    websocket = schema.List()
-
 @configure.behavior(
-    title="Socket_Attachmant",
+    title="Socket Attachmant",
     provides=IMySocketBehavior,
-    marker=IMarkerBehavior,
+    marker=ISocketMarcker,
     for_=IResource)
 class MySocketBehavior(AnnotationBehavior):
     """If attributes
     """
+    websocket = ContextProperty("websocket", ())

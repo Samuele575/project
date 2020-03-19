@@ -93,7 +93,7 @@ async def get_notifications(context, request):
         if 'Notification' == getattr(item, "type_name"):
 
             #qui idealmente si può mettere anche la ricerca sull'email
-            if getattr(item, "notification_type") == notification_type and getattr(item, "application_name") == application_name and getattr(item, "recipientId") == user_Id:
+            if getattr(item, "not_type") == notification_type and getattr(item, "application_name") == application_name and getattr(item, "recipientId") == user_Id:
                 summary = await getMultiAdapter(
                     (item, request),
                     IResourceSerializeToJsonSummary)()

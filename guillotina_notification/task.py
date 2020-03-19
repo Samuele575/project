@@ -18,6 +18,7 @@ from guillotina.interfaces import IMailer
 
 import json
 import uuid
+import random
 
 '''
 decido per ora di passare 3 parametri:
@@ -48,7 +49,7 @@ async def post_new_notification(not_type, recipientId, email, message, app):
     #parent = await parent.async_get(app)
     subject = ("Notification for/to " + recipientId)
 
-    random_id = ('Notify_to_' + recipientId + '_' + str(len(message)) + '_' + str(len(recipientId)) + '_' + str(len(app)))
+    random_id = ('Notify_to_' + recipientId + '_' + str(len(message)+random.randint(0,10)) + '_' + str(len(recipientId)+random.randint(0,10)) + '_' + str(len(app)+random.randint(0,10)))
 
     notification = await create_content_in_container(
                 parent, 'Notification', 
@@ -67,11 +68,10 @@ async def post_new_notification(not_type, recipientId, email, message, app):
 
     print('Scritto nel db')
 
-    await notify(ObjectAddedEvent(notification, parent, random_id))
-    #utility = get_utility(INotificationSender)
-    #await utility.post_notification_in_ws_queue(notification)
+    utility = get_utility(INotificationSender)
+    utility.set_Navigator()
 
-    # check_security=False,
+    await notify(ObjectAddedEvent(notification, parent, random_id))
 
 '''
 ok cosa gli passo qui come destinatario...email o receverId?
